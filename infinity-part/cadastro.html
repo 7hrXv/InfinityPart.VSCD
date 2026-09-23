@@ -1,147 +1,544 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
-<script>(function(){try{var t=localStorage.getItem('ip_theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem('ip_theme');
+
+    if(t === 'light'){
+      document.documentElement.setAttribute(
+        'data-theme',
+        'light'
+      );
+    }
+  } catch(e){}
+})();
+</script>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
 <title>Criar Conta | Infinity Parts</title>
-<meta name="description" content="Crie sua conta na Infinity Parts e acompanhe seus pedidos, favoritos e dados pessoais.">
-<link rel="icon" href="assets/icons/favicon-256.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/responsive.css">
+
+<meta
+  name="description"
+  content="Crie sua conta na Infinity Parts e acompanhe seus pedidos, favoritos e dados pessoais."
+>
+
+<link
+  rel="icon"
+  href="assets/icons/favicon-256.png"
+  type="image/png"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+>
+
+<link
+  rel="stylesheet"
+  href="css/style.css"
+>
+
+<link
+  rel="stylesheet"
+  href="css/components.css"
+>
+
+<link
+  rel="stylesheet"
+  href="css/responsive.css"
+>
+
 </head>
+
 <body>
 
 <header class="site-header">
+
   <div class="container header-main">
-    <a href="index.html" class="logo"><img src="assets/icons/logo-infinity.png" alt="Infinity Parts" class="logo-mark"><span class="logo-text">INFINITY<span>PARTS</span></span></a>
+
+    <a href="index.html" class="logo">
+
+      <img
+        src="assets/icons/logo-infinity.png"
+        alt="Infinity Parts"
+        class="logo-mark"
+      >
+
+      <span class="logo-text">
+        INFINITY<span>PARTS</span>
+      </span>
+
+    </a>
+
     <div style="flex:1;"></div>
+
     <div class="header-actions">
-      <a href="carrinho.html" class="header-action"><i class="bi bi-cart3"></i><span>Carrinho</span><span class="action-badge" id="cart-count">0</span></a>
+
+      <a
+        href="carrinho.html"
+        class="header-action"
+      >
+        <i class="bi bi-cart3"></i>
+        <span>Carrinho</span>
+        <span
+          class="action-badge"
+          id="cart-count"
+        >
+          0
+        </span>
+      </a>
+
     </div>
+
   </div>
+
 </header>
 
 <main>
-  <div class="container" style="padding: 60px 0 90px;">
-    <div class="auth-wrapper" style="max-width: 560px;">
-      <h1 id="register-title">Criar Conta</h1>
-      <p class="auth-sub" id="register-subtitle">Leva menos de dois minutos</p>
 
-      <nav class="checkout-steps-nav register-steps-nav" id="register-steps-nav">
-        <div class="step-indicator active" data-step="1"><span class="step-num">1</span><span class="step-label">Dados pessoais</span></div>
-        <div class="step-indicator" data-step="2"><span class="step-num">2</span><span class="step-label">Endereço</span></div>
-      </nav>
+  <div
+    class="container"
+    style="padding: 60px 0 90px;"
+  >
 
-      <form id="register-form" novalidate>
+    <div
+      class="auth-wrapper"
+      style="max-width: 560px;"
+    >
 
-        <!-- ETAPA 1 — DADOS PESSOAIS -->
-        <div class="register-step active" data-register-step="1">
-          <div class="form-group">
-            <label for="reg-nome">Nome completo</label>
-            <input type="text" id="reg-nome" required autocomplete="name">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="reg-telefone">Telefone</label>
-              <input type="tel" id="reg-telefone" required placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel">
-            </div>
-            <div class="form-group">
-              <label for="reg-nascimento">Data de nascimento</label>
-              <input type="text" id="reg-nascimento" required placeholder="DD/MM/AAAA" inputmode="numeric" autocomplete="bday">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="reg-email">E-mail</label>
-            <input type="email" id="reg-email" required autocomplete="email">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="reg-senha">Senha</label>
-              <input type="password" id="reg-senha" required autocomplete="new-password">
-              <span class="field-hint">Mínimo de 6 caracteres</span>
-            </div>
-            <div class="form-group">
-              <label for="reg-confirmar">Confirmar senha</label>
-              <input type="password" id="reg-confirmar" required autocomplete="new-password">
-            </div>
-          </div>
+      <h1 id="register-title">
+        Criar Conta
+      </h1>
 
-          <button type="button" class="btn btn-primary btn-block" id="btn-register-next">PRÓXIMO</button>
+      <p
+        class="auth-sub"
+        id="register-subtitle"
+      >
+        Leva menos de dois minutos
+      </p>
+
+      <nav
+        class="checkout-steps-nav register-steps-nav"
+        id="register-steps-nav"
+      >
+
+        <div
+          class="step-indicator active"
+          data-step="1"
+        >
+
+          <span class="step-num">
+            1
+          </span>
+
+          <span class="step-label">
+            Dados pessoais
+          </span>
+
         </div>
 
-        <!-- ETAPA 2 — ENDEREÇO -->
-        <div class="register-step" data-register-step="2">
+        <div
+          class="step-indicator"
+          data-step="2"
+        >
+
+          <span class="step-num">
+            2
+          </span>
+
+          <span class="step-label">
+            Endereço
+          </span>
+
+        </div>
+
+      </nav>
+
+      <form
+        id="register-form"
+        novalidate
+      >
+
+        <!-- =====================================================
+             ETAPA 1
+             ===================================================== -->
+
+        <div
+          class="register-step active"
+          data-register-step="1"
+        >
+
           <div class="form-group">
-            <label for="reg-cep">CEP</label>
-            <input type="text" id="reg-cep" required placeholder="00000-000" inputmode="numeric">
-            <span class="field-hint" id="cep-status"></span>
+
+            <label for="reg-nome">
+              Nome completo
+            </label>
+
+            <input
+              type="text"
+              id="reg-nome"
+              required
+              autocomplete="name"
+            >
+
           </div>
+
           <div class="form-group">
-            <label for="reg-rua">Rua</label>
-            <input type="text" id="reg-rua" required>
+
+            <label for="reg-cpf">
+              CPF
+            </label>
+
+            <input
+              type="text"
+              id="reg-cpf"
+              required
+              placeholder="000.000.000-00"
+              inputmode="numeric"
+              autocomplete="off"
+            >
+
           </div>
+
           <div class="form-row">
+
             <div class="form-group">
-              <label for="reg-numero">Número</label>
-              <input type="text" id="reg-numero" required inputmode="numeric">
+
+              <label for="reg-telefone">
+                Telefone
+              </label>
+
+              <input
+                type="tel"
+                id="reg-telefone"
+                required
+                placeholder="(00) 00000-0000"
+                inputmode="numeric"
+                autocomplete="tel"
+              >
+
             </div>
+
             <div class="form-group">
-              <label for="reg-complemento">Complemento</label>
-              <input type="text" id="reg-complemento" placeholder="Opcional">
+
+              <label for="reg-nascimento">
+                Data de nascimento
+              </label>
+
+              <input
+                type="text"
+                id="reg-nascimento"
+                required
+                placeholder="DD/MM/AAAA"
+                inputmode="numeric"
+                autocomplete="bday"
+              >
+
             </div>
+
           </div>
+
           <div class="form-group">
-            <label for="reg-bairro">Bairro</label>
-            <input type="text" id="reg-bairro" required>
+
+            <label for="reg-email">
+              E-mail
+            </label>
+
+            <input
+              type="email"
+              id="reg-email"
+              required
+              autocomplete="email"
+            >
+
           </div>
+
           <div class="form-row">
+
             <div class="form-group">
-              <label for="reg-cidade">Cidade</label>
-              <input type="text" id="reg-cidade" required>
+
+              <label for="reg-senha">
+                Senha
+              </label>
+
+              <input
+                type="password"
+                id="reg-senha"
+                required
+                autocomplete="new-password"
+              >
+
+              <span class="field-hint">
+                Mínimo de 6 caracteres
+              </span>
+
             </div>
+
             <div class="form-group">
-              <label for="reg-estado">Estado</label>
-              <input type="text" id="reg-estado" required maxlength="2" style="text-transform:uppercase;">
+
+              <label for="reg-confirmar">
+                Confirmar senha
+              </label>
+
+              <input
+                type="password"
+                id="reg-confirmar"
+                required
+                autocomplete="new-password"
+              >
+
             </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            id="btn-register-next"
+          >
+            PRÓXIMO
+          </button>
+
+        </div>
+
+        <!-- =====================================================
+             ETAPA 2
+             ===================================================== -->
+
+        <div
+          class="register-step"
+          data-register-step="2"
+        >
+
+          <div class="form-group">
+
+            <label for="reg-cep">
+              CEP
+            </label>
+
+            <input
+              type="text"
+              id="reg-cep"
+              required
+              placeholder="00000-000"
+              inputmode="numeric"
+            >
+
+            <span
+              class="field-hint"
+              id="cep-status"
+            ></span>
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="reg-rua">
+              Rua
+            </label>
+
+            <input
+              type="text"
+              id="reg-rua"
+              required
+            >
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label for="reg-numero">
+                Número
+              </label>
+
+              <input
+                type="text"
+                id="reg-numero"
+                required
+                inputmode="numeric"
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="reg-complemento">
+                Complemento
+              </label>
+
+              <input
+                type="text"
+                id="reg-complemento"
+                placeholder="Opcional"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="reg-bairro">
+              Bairro
+            </label>
+
+            <input
+              type="text"
+              id="reg-bairro"
+              required
+            >
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label for="reg-cidade">
+                Cidade
+              </label>
+
+              <input
+                type="text"
+                id="reg-cidade"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="reg-estado">
+                Estado
+              </label>
+
+              <input
+                type="text"
+                id="reg-estado"
+                required
+                maxlength="2"
+                style="text-transform:uppercase;"
+              >
+
+            </div>
+
           </div>
 
           <div class="step-nav-buttons">
-            <button type="button" class="btn btn-outline" id="btn-register-back">VOLTAR</button>
-            <button type="submit" class="btn btn-primary" id="btn-register-finish">FINALIZAR CADASTRO</button>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              id="btn-register-back"
+            >
+              VOLTAR
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="btn-register-finish"
+            >
+              FINALIZAR CADASTRO
+            </button>
+
           </div>
+
         </div>
 
       </form>
 
-      <div class="auth-links" id="register-login-link">
-        <span>Já possui uma conta? <a href="login.html">Entrar</a></span>
+      <div
+        class="auth-links"
+        id="register-login-link"
+      >
+
+        <span>
+          Já possui uma conta?
+          <a href="login.html">
+            Entrar
+          </a>
+        </span>
+
       </div>
+
     </div>
+
   </div>
+
 </main>
 
-<footer class="site-footer" style="margin-top:0;">
-  <div class="container footer-bottom" style="border-top:none;">
-    <span>&copy; <span class="current-year">2026</span> Infinity Parts. Todos os direitos reservados.</span>
+<footer
+  class="site-footer"
+  style="margin-top:0;"
+>
+
+  <div
+    class="container footer-bottom"
+    style="border-top:none;"
+  >
+
+    <span>
+      &copy;
+      <span class="current-year">
+        2026
+      </span>
+      Infinity Parts.
+      Todos os direitos reservados.
+    </span>
+
   </div>
+
 </footer>
 
-<button class="theme-toggle solo" id="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema claro/escuro">
+<button
+  class="theme-toggle solo"
+  id="theme-toggle"
+  aria-label="Alternar tema claro/escuro"
+  title="Alternar tema claro/escuro"
+>
+
   <span class="theme-track">
-    <i class="bi bi-sun-fill theme-icon-sun"></i>
-    <i class="bi bi-moon-stars-fill theme-icon-moon"></i>
+
+    <i
+      class="bi bi-sun-fill theme-icon-sun"
+    ></i>
+
+    <i
+      class="bi bi-moon-stars-fill theme-icon-moon"
+    ></i>
+
     <span class="theme-thumb"></span>
+
   </span>
+
 </button>
 
 <script src="js/products.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/main.js"></script>
 <script src="js/account.js"></script>
+
 </body>
 </html>

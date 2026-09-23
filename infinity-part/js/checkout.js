@@ -8,10 +8,10 @@
 const API_BASE_URL = 'http://localhost:5022/api';
 
 // CLIENTE DE TESTE
-// Depois vamos trocar pelo cliente obtido através do login.
+// Depois podemos trocar pelo cliente obtido através do login.
 const CLIENTE_ID = 4;
 
-// Status "Pendente" retornado pela API
+// Status "Pendente" da API
 const STATUS_PEDIDO_ID = 2;
 
 let checkoutStep = 1;
@@ -33,7 +33,7 @@ function goToStep(step) {
 
   document
     .querySelectorAll('.checkout-step-panel')
-    .forEach(p => p.classList.remove('active'));
+    .forEach(panel => panel.classList.remove('active'));
 
   const panel = document.querySelector(
     `.checkout-step-panel[data-step="${step}"]`
@@ -43,11 +43,18 @@ function goToStep(step) {
     panel.classList.add('active');
   }
 
-  document.querySelectorAll('.step-indicator').forEach(i => {
-    const s = Number(i.dataset.step);
+  document.querySelectorAll('.step-indicator').forEach(indicator => {
+    const currentStep = Number(indicator.dataset.step);
 
-    i.classList.toggle('active', s === step);
-    i.classList.toggle('done', s < step);
+    indicator.classList.toggle(
+      'active',
+      currentStep === step
+    );
+
+    indicator.classList.toggle(
+      'done',
+      currentStep < step
+    );
   });
 
   window.scrollTo({
@@ -67,7 +74,9 @@ function validateStep(step) {
     `.checkout-step-panel[data-step="${step}"]`
   );
 
-  if (!panel) return true;
+  if (!panel) {
+    return true;
+  }
 
   const requiredFields = panel.querySelectorAll('[required]');
 
@@ -78,11 +87,10 @@ function validateStep(step) {
     field.classList.remove('input-error');
 
     if (!field.value.trim()) {
-
       field.classList.add('input-error');
-
       valid = false;
     }
+
   });
 
   if (!valid) {
@@ -115,28 +123,34 @@ function renderCheckoutSummary() {
 
   if (box) {
 
-    box.innerHTML = getCart().map(item => {
+    box.innerHTML = getCart()
+      .map(item => {
 
-      const p = getProductById(item.id);
+        const product = getProductById(item.id);
 
-      if (!p) return '';
+        if (!product) {
+          return '';
+        }
 
-      return `
-        <div class="checkout-summary-item">
-          <span>${item.qty}x ${p.name}</span>
-          <span>${formatBRL(p.salePrice * item.qty)}</span>
-        </div>
-      `;
+        return `
+          <div class="checkout-summary-item">
+            <span>${item.qty}x ${product.name}</span>
+            <span>
+              ${formatBRL(product.salePrice * item.qty)}
+            </span>
+          </div>
+        `;
 
-    }).join('');
+      })
+      .join('');
   }
 
-  const setText = (id, val) => {
+  const setText = (id, value) => {
 
-    const el = document.getElementById(id);
+    const element = document.getElementById(id);
 
-    if (el) {
-      el.textContent = val;
+    if (element) {
+      element.textContent = value;
     }
   };
 
@@ -185,7 +199,10 @@ function maskCPF(value) {
     .slice(0, 11)
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    .replace(
+      /(\d{3})(\d{1,2})$/,
+      '$1-$2'
+    );
 }
 
 
@@ -194,7 +211,10 @@ function maskCEP(value) {
   return value
     .replace(/\D/g, '')
     .slice(0, 8)
-    .replace(/(\d{5})(\d)/, '$1-$2');
+    .replace(
+      /(\d{5})(\d)/,
+      '$1-$2'
+    );
 }
 
 
@@ -203,8 +223,14 @@ function maskPhone(value) {
   return value
     .replace(/\D/g, '')
     .slice(0, 11)
-    .replace(/(\d{2})(\d)/, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2');
+    .replace(
+      /(\d{2})(\d)/,
+      '($1) $2'
+    )
+    .replace(
+      /(\d{5})(\d)/,
+      '$1-$2'
+    );
 }
 
 
@@ -213,7 +239,10 @@ function maskCard(value) {
   return value
     .replace(/\D/g, '')
     .slice(0, 16)
-    .replace(/(\d{4})(?=\d)/g, '$1 ');
+    .replace(
+      /(\d{4})(?=\d)/g,
+      '$1 '
+    );
 }
 
 
@@ -280,6 +309,7 @@ function initPaymentToggle() {
       if (target) {
         target.classList.add('active');
       }
+
     });
 
   });
@@ -292,11 +322,13 @@ function initPaymentToggle() {
 
 function initPixCopy() {
 
-  const btn = document.getElementById('copy-pix');
+  const button = document.getElementById('copy-pix');
 
-  if (!btn) return;
+  if (!button) {
+    return;
+  }
 
-  btn.addEventListener('click', () => {
+  button.addEventListener('click', () => {
 
     const total = calcCartTotals().total;
 
@@ -345,7 +377,7 @@ async function criarPedidoNaAPI(total) {
   };
 
   console.log(
-    '[Infinity Parts] Dados do pedido:',
+    '[Infinity Parts] Dados enviados:',
     pedido
   );
 
@@ -403,7 +435,9 @@ async function criarItemPedidoNaAPI(
     pedidoId: Number(pedidoId),
     produtoId: Number(produtoId),
     quantidade: Number(quantidade),
-    precoUnitario: Number(precoUnitario.toFixed(2))
+    precoUnitario: Number(
+      precoUnitario.toFixed(2)
+    )
   };
 
   console.log(
@@ -476,28 +510,28 @@ async function finalizarPedido() {
 
   finalizandoPedido = true;
 
-  const finishBtn = document.getElementById(
-    'finish-order'
-  );
+  const finishButton =
+    document.getElementById('finish-order');
 
-  const textoOriginal = finishBtn
-    ? finishBtn.innerHTML
+  const textoOriginal = finishButton
+    ? finishButton.innerHTML
     : '';
 
   try {
 
-    if (finishBtn) {
+    if (finishButton) {
 
-      finishBtn.disabled = true;
+      finishButton.disabled = true;
 
-      finishBtn.innerHTML =
+      finishButton.innerHTML =
         '<i class="bi bi-arrow-repeat spin"></i> PROCESSANDO PEDIDO...';
     }
 
-    /*
-     * Calcula o total exatamente como o resumo
-     * do checkout.
-     */
+
+    /* --------------------------------------------------------
+       CALCULA O TOTAL
+       -------------------------------------------------------- */
+
     const {
       total
     } = calcCartTotals();
@@ -518,13 +552,9 @@ async function finalizarPedido() {
       await criarPedidoNaAPI(total);
 
 
-    /*
-     * A API pode retornar diretamente:
-     *
-     * { id: 5, ... }
-     *
-     * Então pegamos o ID.
-     */
+    /* --------------------------------------------------------
+       O ID PODE VIR COM DIFERENTES NOMES
+       -------------------------------------------------------- */
 
     const pedidoId =
       pedidoCriado?.id ??
@@ -562,14 +592,8 @@ async function finalizarPedido() {
         );
       }
 
-
-      /*
-       * O preço usado no ItemPedido é o preço
-       * de venda que o Front está mostrando.
-       */
       const precoUnitario =
         Number(product.salePrice);
-
 
       await criarItemPedidoNaAPI(
         pedidoId,
@@ -588,13 +612,13 @@ async function finalizarPedido() {
       'IP' + String(pedidoId).padStart(5, '0');
 
 
-    const setText = (id, val) => {
+    const setText = (id, value) => {
 
-      const el =
+      const element =
         document.getElementById(id);
 
-      if (el) {
-        el.textContent = val;
+      if (element) {
+        element.textContent = value;
       }
     };
 
@@ -605,11 +629,10 @@ async function finalizarPedido() {
     );
 
 
-    /*
-     * Só apagamos o carrinho DEPOIS de
-     * Pedido + todos os ItemPedido
-     * terem sido criados.
-     */
+    /* --------------------------------------------------------
+       LIMPA O CARRINHO SOMENTE APÓS
+       PEDIDO E ITENS SEREM CRIADOS
+       -------------------------------------------------------- */
 
     localStorage.removeItem(CART_KEY);
 
@@ -647,27 +670,23 @@ async function finalizarPedido() {
       error
     );
 
-
     showToast(
       'Não foi possível finalizar o pedido. Verifique a API.',
       'error'
     );
 
-
     /*
-     * NÃO apagamos o carrinho em caso de erro.
-     * Assim o usuário não perde os produtos.
+     * O carrinho NÃO é apagado se ocorrer erro.
      */
-
   } finally {
 
     finalizandoPedido = false;
 
-    if (finishBtn) {
+    if (finishButton) {
 
-      finishBtn.disabled = false;
+      finishButton.disabled = false;
 
-      finishBtn.innerHTML =
+      finishButton.innerHTML =
         textoOriginal;
     }
   }
@@ -682,13 +701,11 @@ function initStepNavigation() {
 
   document
     .querySelectorAll('.btn-next-step')
-    .forEach(btn => {
+    .forEach(button => {
 
-      btn.addEventListener('click', () => {
+      button.addEventListener('click', () => {
 
-        if (
-          validateStep(checkoutStep)
-        ) {
+        if (validateStep(checkoutStep)) {
 
           goToStep(
             checkoutStep + 1
@@ -703,9 +720,9 @@ function initStepNavigation() {
 
   document
     .querySelectorAll('.btn-prev-step')
-    .forEach(btn => {
+    .forEach(button => {
 
-      btn.addEventListener('click', () => {
+      button.addEventListener('click', () => {
 
         goToStep(
           checkoutStep - 1
@@ -716,26 +733,19 @@ function initStepNavigation() {
     });
 
 
-  const finishBtn =
+  const finishButton =
     document.getElementById(
       'finish-order'
     );
 
 
-  if (finishBtn) {
+  if (finishButton) {
 
-    finishBtn.addEventListener(
+    finishButton.addEventListener(
       'click',
       async () => {
 
-        /*
-         * Verifica novamente a última etapa
-         * antes de enviar para a API.
-         */
-
-        if (
-          !validateStep(checkoutStep)
-        ) {
+        if (!validateStep(checkoutStep)) {
           return;
         }
 
@@ -775,7 +785,7 @@ document.addEventListener(
 
 
     /*
-     * Aguarda os produtos da API.
+     * Aguarda os produtos carregados.
      */
 
     await window.productsReadyPromise;
