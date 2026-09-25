@@ -3624,7 +3624,7 @@ async function fetchProductsFromApi() {
   stock: Number(produto.quantidadeEstoque),
   rating: 0,
   reviews: 0,
-  image: "",
+  image: produto.image || "",
   badges: [],
   sku: produto.codigo,
   desc: produto.descricao || "Sem descrição disponível.",
