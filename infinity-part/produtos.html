@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 
 <script>
@@ -15,7 +17,10 @@
 })();
 </script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Todos os Produtos | Infinity Parts</title>
 
@@ -30,7 +35,10 @@
   type="image/png"
 >
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
 
 <link
   href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
@@ -240,6 +248,8 @@
         id="main-nav"
       >
 
+        <!-- INÍCIO -->
+
         <li>
 
           <a href="index.html">
@@ -253,7 +263,10 @@
 
         <li class="has-dropdown">
 
-          <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo">
+          <a
+            href="produtos.html?secao=hardware"
+            data-section="hardware"
+          >
 
             Hardware
 
@@ -287,6 +300,18 @@
               </a>
             </li>
 
+            <li>
+              <a href="produtos.html?categoria=SSD">
+                SSD
+              </a>
+            </li>
+
+            <li>
+              <a href="produtos.html?categoria=Fonte">
+                Fontes
+              </a>
+            </li>
+
           </ul>
 
         </li>
@@ -296,7 +321,9 @@
 
         <li class="has-dropdown">
 
-          <a href="produtos.html?categoria=Teclado">
+          <a
+            href="produtos.html?categoria=Teclado"
+          >
 
             Periféricos
 
@@ -340,8 +367,8 @@
         <li>
 
           <a
-            href="produtos.html"
-            class="active"
+            href="produtos.html?secao=pc-gamer"
+            data-section="pc-gamer"
           >
             PC Gamer
           </a>
@@ -353,7 +380,10 @@
 
         <li>
 
-          <a href="produtos.html?categoria=Cabos%20e%20Adaptadores">
+          <a
+            href="produtos.html?categoria=Cabos%20e%20Adaptadores"
+            data-category="Cabos e Adaptadores"
+          >
             Acessórios
           </a>
 
@@ -364,14 +394,14 @@
 
         <li>
 
-          <a href="produtos.html">
+          <a
+            href="produtos.html?secao=ofertas"
+            data-section="ofertas"
+          >
             Ofertas
           </a>
 
         </li>
-
-
-        <!-- OPEN BOX REMOVIDO -->
 
 
         <!-- SUPORTE -->
@@ -411,7 +441,10 @@
         /
       </span>
 
-      <span class="current">
+      <span
+        class="current"
+        id="breadcrumb-current"
+      >
         Todos os produtos
       </span>
 
@@ -420,6 +453,7 @@
 
     <h1
       class="page-title"
+      id="catalog-title"
       style="margin-bottom:24px;"
     >
       Todos os produtos
@@ -879,5 +913,148 @@
 
 <script src="js/filters.js"></script>
 
+
+<!-- =========================================================
+     NAVEGAÇÃO ATIVA
+========================================================= -->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const secao =
+    params.get('secao');
+
+  const categoria =
+    params.get('categoria');
+
+
+  /*
+   * Remove qualquer active que possa
+   * ter vindo do HTML.
+   */
+
+  document
+    .querySelectorAll('.main-nav > li > a')
+    .forEach(function (link) {
+
+      link.classList.remove('active');
+
+    });
+
+
+  /*
+   * SEÇÃO
+   */
+
+  if (secao) {
+
+    const sectionLink =
+      document.querySelector(
+        '.main-nav > li > a[data-section="' +
+        secao +
+        '"]'
+      );
+
+    if (sectionLink) {
+
+      sectionLink.classList.add('active');
+
+    }
+
+  }
+
+
+  /*
+   * CATEGORIA
+   */
+
+  if (categoria) {
+
+    const categoryLink =
+      document.querySelector(
+        '.main-nav > li > a[data-category="' +
+        categoria +
+        '"]'
+      );
+
+    if (categoryLink) {
+
+      categoryLink.classList.add('active');
+
+    }
+
+  }
+
+
+  /*
+   * Atualiza o título conforme
+   * a seção selecionada.
+   */
+
+  const title =
+    document.getElementById('catalog-title');
+
+  const breadcrumb =
+    document.getElementById('breadcrumb-current');
+
+
+  if (secao === 'hardware') {
+
+    if (title) {
+      title.textContent = 'Hardware';
+    }
+
+    if (breadcrumb) {
+      breadcrumb.textContent = 'Hardware';
+    }
+
+  }
+
+  else if (secao === 'pc-gamer') {
+
+    if (title) {
+      title.textContent = 'PC Gamer';
+    }
+
+    if (breadcrumb) {
+      breadcrumb.textContent = 'PC Gamer';
+    }
+
+  }
+
+  else if (secao === 'ofertas') {
+
+    if (title) {
+      title.textContent = 'Ofertas';
+    }
+
+    if (breadcrumb) {
+      breadcrumb.textContent = 'Ofertas';
+    }
+
+  }
+
+  else if (categoria) {
+
+    if (title) {
+      title.textContent = categoria;
+    }
+
+    if (breadcrumb) {
+      breadcrumb.textContent = categoria;
+    }
+
+  }
+
+});
+
+</script>
+
+
 </body>
+
 </html>

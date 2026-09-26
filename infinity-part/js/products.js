@@ -3577,6 +3577,290 @@ function productImageHtml(product, linkHref) {
   return `<a href="${linkHref}">${inner}</a>`;
 }
 
+function detectarCategoriaProduto(produto) {
+  const nome = String(produto.nome || "").toLowerCase();
+  const codigo = String(produto.codigo || "").toLowerCase();
+
+  if (
+    nome.includes("rtx") ||
+    nome.includes("rx ") ||
+    nome.includes("gtx") ||
+    nome.includes("placa de vídeo") ||
+    nome.includes("placa de video") ||
+    codigo.includes("gpu")
+  ) {
+    return "Placa de Vídeo";
+  }
+
+  if (
+    nome.includes("ryzen") ||
+    nome.includes("core i3") ||
+    nome.includes("core i5") ||
+    nome.includes("core i7") ||
+    nome.includes("core i9") ||
+    nome.includes("processador") ||
+    codigo.includes("cpu")
+  ) {
+    return "Processador";
+  }
+
+  if (
+    nome.includes("b550") ||
+    nome.includes("b650") ||
+    nome.includes("z790") ||
+    nome.includes("placa-mãe") ||
+    nome.includes("placa mae") ||
+    nome.includes("motherboard") ||
+    codigo.includes("mbd")
+  ) {
+    return "Placa-mãe";
+  }
+
+  if (
+    nome.includes("ddr4") ||
+    nome.includes("ddr5") ||
+    nome.includes("vengeance") ||
+    nome.includes("fury") ||
+    nome.includes("spectrix") ||
+    nome.includes("memória") ||
+    nome.includes("memoria") ||
+    codigo.includes("ram")
+  ) {
+    return "Memória RAM";
+  }
+
+  if (
+    nome.includes("nvme") ||
+    nome.includes("ssd") ||
+    nome.includes("970 evo") ||
+    nome.includes("nv2") ||
+    codigo.includes("ssd")
+  ) {
+    return "SSD";
+  }
+
+  if (
+    nome.includes("hd ") ||
+    nome.includes("hard disk") ||
+    nome.includes("barracuda") ||
+    nome.includes("elements") ||
+    nome.includes("blue 1tb") ||
+    nome.includes("green 480gb")
+  ) {
+    return "HD";
+  }
+
+  if (
+    nome.includes("fonte") ||
+    nome.includes("650w") ||
+    nome.includes("600w") ||
+    nome.includes("power supply") ||
+    codigo.includes("psu")
+  ) {
+    return "Fonte";
+  }
+
+  if (
+    nome.includes("gabinete") ||
+    nome.includes("4000d") ||
+    nome.includes("lancool") ||
+    codigo.includes("cse")
+  ) {
+    return "Gabinete";
+  }
+
+  if (
+    nome.includes("cooler") ||
+    nome.includes("kraken") ||
+    nome.includes("hyper 212") ||
+    nome.includes("ag400") ||
+    nome.includes("se-224") ||
+    nome.includes("ux200")
+  ) {
+    return "Cooler";
+  }
+
+  if (
+    nome.includes("fan") ||
+    nome.includes("sickleflow") ||
+    nome.includes("ll120") ||
+    nome.includes("aer rgb") ||
+    nome.includes("ventoinha")
+  ) {
+    return "Ventoinha";
+  }
+
+  if (
+    nome.includes("monitor") ||
+    nome.includes("ultragear") ||
+    nome.includes("odyssey") ||
+    nome.includes("24g2")
+  ) {
+    return "Monitor";
+  }
+
+  if (
+    nome.includes("teclado") ||
+    nome.includes("alloy origins") ||
+    nome.includes("kumara") ||
+    nome.includes("g213")
+  ) {
+    return "Teclado";
+  }
+
+  if (
+    nome.includes("mouse") ||
+    nome.includes("pulsefire") ||
+    nome.includes("g203") ||
+    nome.includes("griffin")
+  ) {
+    return "Mouse";
+  }
+
+  if (
+    nome.includes("headset") ||
+    nome.includes("cloud stinger") ||
+    nome.includes("g435") ||
+    nome.includes("zeus")
+  ) {
+    return "Headset";
+  }
+
+  if (
+    nome.includes("webcam") ||
+    nome.includes("kiyo")
+  ) {
+    return "Webcam";
+  }
+
+  if (
+    nome.includes("microfone") ||
+    nome.includes("solocast")
+  ) {
+    return "Microfone";
+  }
+
+  if (
+    nome.includes("sound blaster") ||
+    nome.includes("z633") ||
+    nome.includes("áudio") ||
+    nome.includes("audio")
+  ) {
+    return "Áudio";
+  }
+
+  if (
+    nome.includes("wifi") ||
+    nome.includes("ax210") ||
+    nome.includes("archer") ||
+    nome.includes("mercusys") ||
+    nome.includes("adaptador usb")
+  ) {
+    return "Rede";
+  }
+
+  if (
+    nome.includes("nobreak") ||
+    nome.includes("back-ups") ||
+    nome.includes("xnb") ||
+    nome.includes("station ii")
+  ) {
+    return "Energia";
+  }
+
+  if (
+    nome.includes("dxracer") ||
+    nome.includes("thunderx3")
+  ) {
+    return "Cadeira Gamer";
+  }
+
+  if (
+    nome.includes("g29") ||
+    nome.includes("t248") ||
+    nome.includes("volante")
+  ) {
+    return "Volantes";
+  }
+
+  if (
+    nome.includes("elgato") ||
+    nome.includes("avermedia") ||
+    nome.includes("live gamer") ||
+    nome.includes("captura")
+  ) {
+    return "Captura";
+  }
+
+  if (
+    nome.includes("cabo") ||
+    nome.includes("kit limpeza") ||
+    nome.includes("ar comprimido") ||
+    nome.includes("pasta termica") ||
+    nome.includes("pasta térmica")
+  ) {
+    return "Acessórios";
+  }
+
+  return "Outros";
+}
+
+
+function isPcGamer(produto, categoria) {
+  const nome = String(produto.nome || "").toLowerCase();
+
+  const termos = [
+    "rtx",
+    "rx ",
+    "ryzen",
+    "core i5",
+    "core i7",
+    "gaming",
+    "gamer",
+    "hyperx",
+    "redragon",
+    "razer",
+    "logitech",
+    "corsair",
+    "aoc",
+    "ultragear",
+    "odyssey",
+    "dxracer",
+    "thunderx3",
+    "g29",
+    "t248",
+    "teclado",
+    "mouse",
+    "headset",
+    "webcam",
+    "microfone"
+  ];
+
+  return (
+    categoria === "PC Gamer" ||
+    termos.some(termo => nome.includes(termo))
+  );
+}
+
+
+function isOferta(produto) {
+  /*
+   * Como o ProdutoDto atual não possui preço original/preço promocional,
+   * usamos uma seleção de produtos para a vitrine de ofertas.
+   *
+   * Esses IDs correspondem aos produtos cadastrados atualmente.
+   */
+  const idsEmOferta = new Set([
+    6, 8, 11, 15, 18, 22, 29,
+    31, 35, 41, 44, 49, 50,
+    53, 57, 58, 61, 63, 69,
+    70, 73
+  ]);
+
+  return idsEmOferta.has(Number(produto.id));
+}
+
+
 async function fetchProductsFromApi() {
   const controller = new AbortController();
 
@@ -3610,32 +3894,61 @@ async function fetchProductsFromApi() {
       throw new Error("A API não retornou uma lista de produtos.");
     }
 
-    /*
-     * Converte o ProdutoDto do C#
- para o formato que a UI atual já utiliza.
-     */
-    return data.map(produto => ({
-  id: produto.id,
-  name: produto.nome,
-  brand: `Marca #${produto.marcaId}`,
-  category: "Produto",
-  price: Number(produto.preco),
-  salePrice: Number(produto.preco),
-  stock: Number(produto.quantidadeEstoque),
-  rating: 0,
-  reviews: 0,
-  image: produto.image || "",
-  badges: [],
-  sku: produto.codigo,
-  desc: produto.descricao || "Sem descrição disponível.",
-  specs: {
-    Código: produto.codigo,
-    Estoque: `${produto.quantidadeEstoque} unidades`,
-    "ID da marca": produto.marcaId
-  },
+    return data.map(produto => {
+      // Detecta corretamente a categoria do produto
+      const categoria = detectarCategoriaProduto(produto);
 
-  apiData: produto
-}));
+      // Verifica se o produto pertence à seção PC Gamer
+      const produtoPcGamer = isPcGamer(produto, categoria);
+
+      // Verifica se o produto está em oferta
+      const produtoOferta = isOferta(produto);
+
+      return {
+        id: produto.id,
+
+        name: produto.nome,
+
+        brand: `Marca #${produto.marcaId}`,
+
+        // Categoria detectada automaticamente
+        category: categoria,
+
+        price: Number(produto.preco),
+
+        salePrice: Number(produto.preco),
+
+        stock: Number(produto.quantidadeEstoque),
+
+        rating: 0,
+
+        reviews: 0,
+
+        image: produto.image || "",
+
+        badges: produtoOferta
+          ? ["OFERTA"]
+          : [],
+
+        sku: produto.codigo,
+
+        desc: produto.descricao || "Sem descrição disponível.",
+
+        specs: {
+          Código: produto.codigo,
+          Estoque: `${produto.quantidadeEstoque} unidades`,
+          "ID da marca": produto.marcaId
+        },
+
+        // Usado pelo filtro PC Gamer
+        isPcGamer: produtoPcGamer,
+
+        // Usado pelo filtro de ofertas
+        isOffer: produtoOferta,
+
+        apiData: produto
+      };
+    });
 
   } catch (error) {
     clearTimeout(timeout);
@@ -3648,7 +3961,6 @@ async function fetchProductsFromApi() {
     throw error;
   }
 }
-
 
 /* Carrega os produtos: tenta a API primeiro (se habilitada), e cai para o
    catálogo de demonstração em caso de falha. Todo o resto do site (main.js,
